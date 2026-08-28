@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO META TAGS -->
+    <title>{% block title %}Portfolio{% endblock %}</title>
+    <meta name="description" content="Personal Portfolio of a Python & Flask Developer building modern web applications.">
+    <meta property="og:title" content="Python Developer Portfolio">
+    <meta property="og:description" content="Explore my projects, skills, and background.">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3.0">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="{{ url_for('home') }}" class="logo">
+                <span class="logo-name">Portfolio</span>
+            </a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('home') }}#home" class="nav-link">Home</a></li>
+                    <li><a href="{{ url_for('home') }}#about" class="nav-link">About</a></li>
+                    <li><a href="{{ url_for('home') }}#skills" class="nav-link">Skills</a></li>
+                    <li><a href="{{ url_for('projects') }}" class="nav-link">Projects</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <button id="theme-toggle" class="theme-btn" aria-label="Toggle Theme">🌙</button>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="back-to-top" class="back-to-top-btn" title="Go to top">↑</button>
+
+    <!-- JAVASCRIPT FOR THEME & SCROLL -->
+    <script>
+        // Dark Mode Toggle Logic
+        const toggleBtn = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme');
+
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            toggleBtn.textContent = '☀️';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                toggleBtn.textContent = '🌙';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                toggleBtn.textContent = '☀️';
+            }
+        });
+
+        // Back to Top Button Logic
+        const topBtn = document.getElementById('back-to-top');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                topBtn.style.display = "block";
+            } else {
+                topBtn.style.display = "none";
+            }
+        };
+
+        topBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
