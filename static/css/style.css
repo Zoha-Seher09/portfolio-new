@@ -80,14 +80,31 @@ body {
 }
 
 .nav-link {
-    color: #f5f1e8;
-    text-decoration: none;
+    color: #f5f1e8 !important;
+    text-decoration: none !important;
     font-size: 14px;
+    position: relative;
+    padding-bottom: 4px;
     transition: color 0.2s ease;
 }
 
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.25s ease;
+}
+
 .nav-link:hover {
-    color: var(--accent);
+    color: var(--accent) !important;
+}
+
+.nav-link:hover::after {
+    width: 100%;
 }
 
 .theme-btn {
@@ -114,17 +131,45 @@ body {
     margin: 0 auto;
 }
 
-h1, h2, h3 {
+section {
+    padding-top: 20px;
+    scroll-margin-top: 90px;
+}
+
+h1 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.2;
     color: var(--text);
     margin-bottom: 12px;
+    text-decoration: none;
+}
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+    text-decoration: none;
+}
+
+h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 6px;
+    text-decoration: none;
 }
 
 p {
+    color: var(--text);
+    opacity: 0.85;
     margin-bottom: 15px;
 }
 
 a {
     color: var(--accent);
+    text-decoration: none;
 }
 
 /* ==========================================
@@ -201,29 +246,31 @@ a {
 .skills-matrix {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
     margin-top: 15px;
+    max-width: 500px;
 }
 
 .skill-info {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
-    font-weight: 600;
+    margin-bottom: 4px;
+    font-weight: 500;
+    font-size: 13px;
 }
 
 .progress-bar {
     width: 100%;
     background: var(--border);
-    height: 10px;
-    border-radius: 5px;
+    height: 6px;
+    border-radius: 4px;
     overflow: hidden;
 }
 
 .progress {
     background: var(--accent);
     height: 100%;
-    border-radius: 5px;
+    border-radius: 4px;
     transition: width 1s ease-in-out;
 }
 
@@ -232,25 +279,34 @@ a {
    ========================================== */
 .btn {
     display: inline-block;
-    padding: 10px 18px;
+    padding: 12px 22px;
     background-color: var(--accent);
     color: #ffffff !important;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 8px;
     border: none;
-    font-weight: 500;
+    font-weight: 600;
+    font-size: 14px;
     cursor: pointer;
-    transition: opacity 0.2s ease;
+    transition: all 0.2s ease;
+    animation: float-btn 3s ease-in-out infinite;
 }
 
 .btn:hover {
-    opacity: 0.9;
+    opacity: 1;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(217, 119, 66, 0.35);
 }
 
 .btn-outline {
     background: transparent !important;
     border: 1px solid var(--accent);
     color: var(--text) !important;
+}
+
+@keyframes float-btn {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
 }
 
 .card-container {
@@ -266,6 +322,12 @@ a {
     border-radius: 8px;
     padding: 20px;
     margin-bottom: 16px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .accent-tag {
@@ -307,4 +369,111 @@ a {
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ==========================================
+   9. RESPONSIVE (MOBILE)
+   ========================================== */
+@media (max-width: 600px) {
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    h1 {
+        font-size: 1.8rem;
+    }
+    .nav-links {
+        gap: 12px;
+        justify-content: center;
+    }
+}
+
+/* ==========================================
+   10. CONTACT SECTION — NEW STYLE
+   ========================================== */
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px;
+    margin-top: 20px;
+}
+
+.contact-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    opacity: 0.75;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    font-size: 14px;
+}
+
+.contact-detail span.icon {
+    background: var(--accent);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.contact-form-group {
+    margin-bottom: 18px;
+}
+
+.contact-form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    opacity: 0.8;
+}
+
+.contact-form-group input,
+.contact-form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-form-group input:focus,
+.contact-form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(217, 119, 66, 0.15);
+}
+
+.contact-form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+@media (max-width: 700px) {
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+        padding: 24px;
+    }
 }

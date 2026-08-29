@@ -1,1 +1,4 @@
 flask
+requests
+Flask-Mail
+python-dotenv

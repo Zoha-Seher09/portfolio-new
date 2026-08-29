@@ -6,18 +6,18 @@
 <section id="home" class="hero-container fade-in">
     <div class="hero-text">
         <h1>Welcome to My Portfolio</h1>
-        <p>I am a Python Developer building clean, modern, and high-performance web applications.</p>
+        <p>Software Engineering student passionate about building modern web applications and exploring Artificial Intelligence — currently working with Arbab Labs.</p>
         <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-            <a href="{{ url_for('projects') }}" class="btn">View Projects</a>
+            <a href="{{ url_for('home') }}#projects" class="btn">View Projects</a>
             <a href="{{ url_for('static', filename='resume.pdf') }}" download class="btn btn-outline">Download Resume 📄</a>
-            <a href="{{ url_for('contact') }}" class="btn">Get in Touch</a>
+            <a href="{{ url_for('home') }}#contact" class="btn">Get in Touch</a>
         </div>
     </div>
 
-    <!-- PROFILE PICTURE & FLOATING SKILLS -->
     <div class="hero-image-wrapper">
         <div class="profile-img-box">
-<img src="{{ url_for('static', filename='images/zoha.png.png') }}" alt="Profile Picture" class="profile-img">        </div>
+            <img src="{{ url_for('static', filename='images/zoha.png') }}" alt="Profile Picture" class="profile-img">
+        </div>
 
         <div class="floating-badge badge-1">Python 🐍</div>
         <div class="floating-badge badge-2">Flask ⚡</div>
@@ -31,7 +31,9 @@
 <!-- ABOUT SECTION -->
 <section id="about" class="fade-in">
     <h2>About Me</h2>
-    <p>Write a short bio here — who you are, what you work with, and what you are passionate about building.</p>
+    <p>Hi, I'm Zoha Seher, a Software Engineering student with a growing passion for building clean, functional web applications and exploring the world of Artificial Intelligence.I enjoy turning ideas into working products — from backend logic and API integrations to polished, responsive interfaces.</p>
+<p>Alongside my studies, I'm working with Arbab Labs, where I get to apply what I learn to real projects and grow as a developer. My interests span both traditional software engineering and AI, and I'm always looking for ways to combine the two in meaningful, practical ways.</p>
+    <p> I'm currently open to opportunities where I can keep learning, contribute to real-world products, and push myself further as a developer.</p>
 </section>
 
 <!-- SKILLS MATRIX WITH PROGRESS BARS -->
@@ -58,6 +60,16 @@
             <div class="skill-info"><span>HTML / CSS / JS</span><span>85%</span></div>
             <div class="progress-bar"><div class="progress" style="width: 85%;"></div></div>
         </div>
+    </div>
+</section>
+
+<!-- INTERESTS SECTION -->
+<section id="interests" class="fade-in" style="margin-top: 40px;">
+    <h2>Interests</h2>
+    <div>
+        {% for interest in interests %}
+            <span class="accent-tag">{{ interest }}</span>
+        {% endfor %}
     </div>
 </section>
 
@@ -110,6 +122,34 @@
     {% endfor %}
 </section>
 
+<!-- ACHIEVEMENTS SECTION -->
+<section id="achievements" class="fade-in" style="margin-top: 40px;">
+    <h2>Achievements</h2>
+    <div class="card-container">
+        {% for achievement in achievements %}
+            <div class="card">
+                <h3>{{ achievement.title }}</h3>
+                <p>{{ achievement.description }}</p>
+                <small style="color: var(--accent); font-weight: bold;">{{ achievement.year }}</small>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- PROJECTS SECTION -->
+<section id="projects" class="fade-in" style="margin-top: 40px;">
+    <h2>My Projects</h2>
+    <div class="card-container">
+        {% for project in projects %}
+            <div class="card">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+                <a href="{{ project.link }}" target="_blank" class="btn">View Project</a>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
 <!-- TESTIMONIALS SECTION -->
 <section id="testimonials" class="fade-in" style="margin-top: 50px;">
     <h2>Testimonials</h2>
@@ -123,6 +163,54 @@
             <small style="color: var(--accent); font-weight: bold;">— Freelance Client</small>
         </div>
     </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="fade-in" style="margin-top: 40px;">
+    <h2>Contact Me</h2>
+
+    {% if submitted %}
+        <div class="card">
+            <p style="color: var(--accent); font-weight: bold;">
+                Thank you, {{ name }}! Your message has been sent successfully.
+            </p>
+        </div>
+    {% else %}
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h3>Let's Connect</h3>
+                <p>Have a project in mind or just want to say hi? Fill out the form and I'll get back to you soon.</p>
+                <div class="contact-detail">
+                    <span class="icon">✉</span>
+                    <span>zoha.seher@email.com</span>
+                </div>
+                <div class="contact-detail">
+                    <span class="icon">📍</span>
+                    <span>Lahore, Pakistan</span>
+                </div>
+                <div class="contact-detail">
+                    <span class="icon">💻</span>
+                    <span>github.com/Zoha-Seher09</span>
+                </div>
+            </div>
+
+            <form action="{{ url_for('home') }}#contact" method="POST">
+                <div class="contact-form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" required>
+                </div>
+                <div class="contact-form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+                <div class="contact-form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Tell me about your project..." required></textarea>
+                </div>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+        </div>
+    {% endif %}
 </section>
 
 <!-- SCROLL ANIMATION SCRIPT -->
